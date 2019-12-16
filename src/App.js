@@ -4,6 +4,7 @@ import "./App.css";
 import axios from "axios";
 import MovieCollection from "./components/MovieCollection";
 import CustomerCollection from "./components/CustomerCollection";
+import Customer from "./components/Customer";
 
 class App extends Component {
   constructor(props) {
@@ -60,6 +61,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        {this.state.selectedCustomer !== "" && (
+          <h3>Selected Customer: {this.state.selectedCustomer.name}</h3>
+        )}
+
         <MovieCollection movies={this.state.movies} />
         <CustomerCollection
           customers={this.state.customers}
