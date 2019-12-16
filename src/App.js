@@ -5,6 +5,7 @@ import axios from "axios";
 import MovieCollection from "./components/MovieCollection";
 import CustomerCollection from "./components/CustomerCollection";
 import Movie from "./components/Movie";
+import Customer from "./components/Customer";
 
 class App extends Component {
   constructor(props) {
@@ -77,11 +78,20 @@ class App extends Component {
         { this.state.selectedMovie !== "" && (
           <h3> Selected Movie: { selectedMovie.title } </h3>
         )}
+
+        { this.state.selectedCustomer !== "" && (
+          <h3>Selected Customer: {this.state.selectedCustomer.name}</h3>
+        )}
+
         <MovieCollection 
           movies={this.state.movies} 
           selectMovieCallback={this.selectMovie}
         />
-        <CustomerCollection customers={this.state.customers} />
+        
+        <CustomerCollection
+          customers={this.state.customers}
+          selectCustomerCallback={this.selectCustomer}
+        />
       </div>
     );
   }
