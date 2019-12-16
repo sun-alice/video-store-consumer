@@ -4,6 +4,7 @@ import "./App.css";
 import axios from "axios";
 import MovieCollection from "./components/MovieCollection";
 import CustomerCollection from "./components/CustomerCollection";
+import Movie from "./components/Movie";
 
 class App extends Component {
   constructor(props) {
@@ -46,10 +47,29 @@ class App extends Component {
       });
   }
 
+  selectMovie = (movieId) => {
+    const { movies } = this.state;
+
+    const selectedMovie = movies.find((movie) => {
+      return movie.id === movieId;
+    });
+
+    this.setState({ selectedMovie });
+    console.log(this.state.selectedMovie)
+  }
+
   render() {
+    const { selectedMovie } = this.state;
+
     return (
       <div className="App">
-        <MovieCollection movies={this.state.movies} />
+        { this.state.selectedMovie !== "" && (
+          <h3> Selected Movie: { selectedMovie.title } </h3>
+        )}
+        <MovieCollection 
+          movies={this.state.movies} 
+          selectMovieCallback={this.selectMovie}
+        />
         <CustomerCollection customers={this.state.customers} />
       </div>
     );
