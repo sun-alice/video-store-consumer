@@ -12,6 +12,8 @@ class App extends Component {
     this.state = {
       movies: [],
       customers: [],
+      selectedMovie: "",
+      selectedCustomer: "",
       error: ""
     };
   }
