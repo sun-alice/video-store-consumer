@@ -13,7 +13,8 @@ const Customer = props => {
     postal_code,
     phone,
     account_credit,
-    movies_checked_out_count
+    movies_checked_out_count,
+    selectCustomerCallback
   } = props;
 
   return (
@@ -25,6 +26,14 @@ const Customer = props => {
           registered_at: {registered_at}
           account_credit: {account_credit}
           movies_checked_out_count: {movies_checked_out_count}
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              selectCustomerCallback(id);
+            }}
+          >
+            Select
+          </button>
         </p>
       </section>
     </div>

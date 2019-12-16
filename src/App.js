@@ -19,6 +19,17 @@ class App extends Component {
     };
   }
 
+  selectCustomer = customerId => {
+    const { customers } = this.state;
+
+    const selectedCustomer = customers.find(customer => {
+      return customer.id === customerId;
+    });
+
+    this.setState({ selectedCustomer });
+    console.log(selectedCustomer);
+  };
+
   componentDidMount() {
     axios
       .get("http://localhost:3000/customers")

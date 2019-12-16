@@ -5,7 +5,13 @@ import Customer from "./Customer";
 
 const CustomerCollection = props => {
   const customerCollection = props.customers.map((customer, i) => {
-    return <Customer key={i} {...customer} />;
+    return (
+      <Customer
+        key={i}
+        {...customer}
+        selectCustomerCallback={props.selectCustomerCallback}
+      />
+    );
   });
 
   return <div>{customerCollection}</div>;
