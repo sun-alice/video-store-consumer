@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
-import Movie from "./components/Movie";
 import MovieCollection from "./components/MovieCollection";
+import CustomerCollection from "./components/CustomerCollection";
 
 class App extends Component {
   constructor(props) {
@@ -47,7 +47,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <MovieCollection movies={this.state.movies}/>
+        <MovieCollection movies={this.state.movies} />
+        <CustomerCollection customers={this.state.customers} />
       </div>
     );
   }
