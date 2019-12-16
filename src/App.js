@@ -18,6 +18,17 @@ class App extends Component {
     };
   }
 
+  selectCustomer = customerId => {
+    const { customers } = this.state;
+
+    const selectedCustomer = customers.find(customer => {
+      return customer.id === customerId;
+    });
+
+    this.setState({ selectedCustomer });
+    console.log(selectedCustomer);
+  };
+
   componentDidMount() {
     axios
       .get("http://localhost:3000/customers")
@@ -50,7 +61,10 @@ class App extends Component {
     return (
       <div className="App">
         <MovieCollection movies={this.state.movies} />
-        <CustomerCollection customers={this.state.customers} />
+        <CustomerCollection
+          customers={this.state.customers}
+          selectCustomerCallback={this.selectCustomer}
+        />
       </div>
     );
   }
