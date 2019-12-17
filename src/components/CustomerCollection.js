@@ -14,7 +14,7 @@ const CustomerCollection = props => {
     );
   });
 
-  return <div>{customerCollection}</div>;
+  return <div className="background">{customerCollection}</div>;
 };
 
 export default CustomerCollection;

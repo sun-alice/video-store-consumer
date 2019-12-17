@@ -1,12 +1,22 @@
 import React, { Component } from "react";
 import "./App.css";
 import axios from "axios";
+import { Route, Link, BrowserRouter as Router } from "react-router-dom";
+
 import MovieCollection from "./components/MovieCollection";
 import CustomerCollection from "./components/CustomerCollection";
 import RentalCollection from "./components/RentalCollection";
 import SearchResults from "./components/SearchResults";
 
-import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
+import {
+  Navbar,
+  Nav,
+  Form,
+  FormControl,
+  Button,
+  Jumbotron,
+  Card
+} from "react-bootstrap";
 
 class App extends Component {
   constructor(props) {
@@ -262,19 +272,34 @@ class App extends Component {
           </>
 
           <div className="App">
-            {this.state.homepage && <h1>homepage</h1>}
+            {this.state.homepage && (
+              <Jumbotron>
+                <h1>Video Store</h1>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                  irure dolor in reprehenderit in voluptate velit esse cillum
+                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                  cupidatat non proident, sunt in culpa qui officia deserunt
+                  mollit anim id est laborum.
+                </p>
+              </Jumbotron>
+            )}
             {this.state.selectedMovie !== "" && (
-              <h3> Selected Movie: {selectedMovie.title} </h3>
+              <Card body> Selected Movie: {selectedMovie.title} </Card>
             )}
 
             {this.state.selectedCustomer !== "" && (
-              <h3>Selected Customer: {this.state.selectedCustomer.name}</h3>
+              <Card body>
+                Selected Customer: {this.state.selectedCustomer.name}
+              </Card>
             )}
 
             {this.state.selectedCustomer !== "" &&
               this.state.selectedMovie !== "" && (
-                <button
-                  type="button"
+                <Button
                   onClick={() => {
                     this.addRental(
                       this.state.selectedMovie,
@@ -283,7 +308,7 @@ class App extends Component {
                   }}
                 >
                   Checkout Movie
-                </button>
+                </Button>
               )}
 
             {this.state.showMovies && (
@@ -304,20 +329,22 @@ class App extends Component {
               </div>
             )}
 
-            {this.state.showOverdue && (
-              <div>
-                <div>
-                  <RentalCollection rentals={this.state.overdue} />
-                </div>
-              </div>
-            )}
-
             {this.state.showSearchResults && (
               <div>
                 <SearchResults
                   result={this.state.searchResults}
                   // selectMovieCallback={this.selectMovie}
                 />
+              </div>
+            )}
+
+            {this.state.showOverdue && this.state.overdue.length === 0 && (
+              <div>
+                <section className="no-overdue">
+                  <Jumbotron>
+                    <h1>There are no overdue movies.</h1>
+                  </Jumbotron>
+                </section>
               </div>
             )}
           </div>
