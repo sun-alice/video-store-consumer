@@ -4,6 +4,7 @@ import axios from "axios";
 import MovieCollection from "./components/MovieCollection";
 import CustomerCollection from "./components/CustomerCollection";
 import RentalCollection from "./components/RentalCollection";
+import SearchResults from "./components/SearchResults";
 
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
 
@@ -15,7 +16,7 @@ class App extends Component {
       movies: [],
       customers: [],
       overdue: [],
-      searchResult: [],
+      searchResults: [],
       selectedMovie: "",
       selectedCustomer: "",
       searchTerm: "",
@@ -23,6 +24,7 @@ class App extends Component {
       showCustomers: false,
       showOverdue: false,
       homepage: true,
+      showSearchResults: false,
       error: ""
     };
   }
@@ -42,37 +44,41 @@ class App extends Component {
       showMovies: false,
       showCustomers: false,
       showOverdue: false,
-      homepage: true
+      homepage: true,
+      showSearchResults: false,
     };
     this.setState(newState);
   };
 
   showMovies = () => {
     const newState = {
-      showMovies: !this.state.showMovies,
+      showMovies: true,
       showCustomers: false,
       showOverdue: false,
-      homepage: false
+      homepage: false,
+      showSearchResults: false,
     };
     this.setState(newState);
   };
 
   showCustomers = () => {
     const newState = {
-      showCustomers: !this.state.showCustomers,
+      showCustomers: true,
       showMovies: false,
       showOverdue: false,
-      homepage: false
+      homepage: false,
+      showSearchResults: false,
     };
     this.setState(newState);
   };
 
   showOverdue = () => {
     const newState = {
-      showOverdue: !this.state.showOverdue,
+      showOverdue: true,
       showMovies: false,
       showCustomers: false,
-      homepage: false
+      homepage: false,
+      showSearchResults: false,
     };
     this.setState(newState);
   };
@@ -165,10 +171,31 @@ class App extends Component {
     console.log(this.state.selectedMovie);
   };
 
-  searchForMovies = (textInput) => {
-    console.log(textInput);
-  }
-  
+  searchForMovies = movieTitle => {
+    axios
+      .get(`http://localhost:3000/movies/?query=${movieTitle}`)
+      .then(response => {
+        this.setState({
+          searchResults: response.data,
+          showOverdue: false,
+          showMovies: false,
+          showCustomers: false,
+          homepage: false,
+          showSearchResults: true
+        });
+
+       
+        console.log(response.data)
+      })
+      .catch(error => {
+        this.setState({
+          error: error.message
+        });
+        console.log(error.message)
+      });  
+      console.log(this.state.searchResults)
+ 
+  };
 
   render() {
     const { selectedMovie } = this.state;
@@ -228,7 +255,7 @@ class App extends Component {
                 />
                 <Button 
                   variant="outline-info"
-                  // onClick={() => {this.searchForMovies(ref)}}
+                  onClick={() => {this.searchForMovies(this.state.searchTerm)}}
                 >Search</Button>
               </Form>
             </Navbar>
@@ -282,6 +309,15 @@ class App extends Component {
                 <div>
                   <RentalCollection rentals={this.state.overdue} />
                 </div>
+              </div>
+            )}
+
+            {this.state.showSearchResults && (
+              <div>
+                <SearchResults
+                  result={this.state.searchResults}
+                  // selectMovieCallback={this.selectMovie}
+                />
               </div>
             )}
           </div>
