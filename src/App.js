@@ -29,16 +29,31 @@ class App extends Component {
   };
 
   addRental = (movie, customerId) => {
-    const { rentals, customers } = this.state;
-    rentals.push(movie);
+    const queryParams = {
+      customer_id: customerId,
+      due_date: "January 25, 2020"
+    };
 
-    const customerToIncrease = customers.find(
-      customer => customer.id === customerId
-    );
-    customerToIncrease.movies_checked_out_count++;
+    axios
+      .post(
+        "http://localhost:3000/rentals/" + `${movie.title}` + "/check-out",
+        queryParams
+      )
+      .then(response => {
+        const updatedData = this.state.rentals;
+        updatedData.push(response.data);
+        this.setState({
+          rentals: updatedData,
+          error: ""
+        });
+      })
+      .catch(error => {
+        this.setState({ error: error.message });
+      });
 
-    this.setState(rentals);
-    this.setState(customers);
+    this.state.selectedCustomer = "";
+    this.state.selectedMovie = "";
+    this.componentDidMount();
   };
 
   componentDidMount() {
@@ -117,10 +132,10 @@ class App extends Component {
           selectCustomerCallback={this.selectCustomer}
         />
         {/* Rentals */}
-        <MovieCollection
+        {/* <MovieCollection
           movies={this.state.rentals}
           selectMovieCallback={this.selectMovie}
-        />
+        /> */}
       </div>
     );
   }
