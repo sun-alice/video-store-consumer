@@ -14,7 +14,7 @@ const MovieCollection = props => {
     );
   });
 
-  return <div className="movie-collection">{movieCollection}</div>;
+  return <div>{movieCollection}</div>;
 };
 
 export default MovieCollection;

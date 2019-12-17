@@ -5,6 +5,8 @@ import MovieCollection from "./components/MovieCollection";
 import CustomerCollection from "./components/CustomerCollection";
 import RentalCollection from "./components/RentalCollection";
 
+import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -17,24 +19,49 @@ class App extends Component {
       selectedCustomer: "",
       showMovies: false,
       showCustomers: false,
-      searchBar: false,
       showOverdue: false,
+      homepage: true,
       error: ""
     };
   }
 
+  showHomepage = () => {
+    const newState = {
+      showMovies: false,
+      showCustomers: false,
+      showOverdue: false,
+      homepage: true
+    };
+    this.setState(newState);
+  };
+
   showMovies = () => {
-    const newState = { showMovies: !this.state.showMovies };
+    const newState = {
+      showMovies: !this.state.showMovies,
+      showCustomers: false,
+      showOverdue: false,
+      homepage: false
+    };
     this.setState(newState);
   };
 
   showCustomers = () => {
-    const newState = { showCustomers: !this.state.showCustomers };
+    const newState = {
+      showCustomers: !this.state.showCustomers,
+      showMovies: false,
+      showOverdue: false,
+      homepage: false
+    };
     this.setState(newState);
   };
 
   showOverdue = () => {
-    const newState = { showOverdue: !this.state.showOverdue };
+    const newState = {
+      showOverdue: !this.state.showOverdue,
+      showMovies: false,
+      showCustomers: false,
+      homepage: false
+    };
     this.setState(newState);
   };
 
@@ -140,36 +167,54 @@ class App extends Component {
           />
         </head>
         <body>
+          <>
+            <Navbar bg="dark" variant="dark">
+              <Navbar.Brand
+                onClick={() => {
+                  this.showHomepage();
+                }}
+              >
+                VideoStore
+              </Navbar.Brand>
+              <Nav className="mr-auto">
+                <Nav.Link
+                  type="button"
+                  onClick={() => {
+                    this.showMovies();
+                  }}
+                >
+                  All Movies
+                </Nav.Link>
+                <Nav.Link
+                  type="button"
+                  onClick={() => {
+                    this.showCustomers();
+                  }}
+                >
+                  All Customers
+                </Nav.Link>
+                <Nav.Link
+                  type="button"
+                  onClick={() => {
+                    this.showOverdue();
+                  }}
+                >
+                  Overdue Movies
+                </Nav.Link>
+              </Nav>
+              <Form inline>
+                <FormControl
+                  type="text"
+                  placeholder="Search"
+                  className="mr-sm-2"
+                />
+                <Button variant="outline-info">Search</Button>
+              </Form>
+            </Navbar>
+          </>
+
           <div className="App">
-            <h1>Video Store</h1>
-            {/* buttons */}
-            <button
-              type="button"
-              onClick={() => {
-                this.showMovies();
-              }}
-            >
-              All Movies
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                this.showCustomers();
-              }}
-            >
-              All Customers
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                this.showOverdue();
-              }}
-            >
-              Overdue Movies
-            </button>
-
+            {this.state.homepage && <h1>homepage</h1>}
             {this.state.selectedMovie !== "" && (
               <h3> Selected Movie: {selectedMovie.title} </h3>
             )}

@@ -15,7 +15,7 @@ const Movie = props => {
   } = props;
 
   return (
-    <div>
+    <ul>
       <Card style={{ width: "18rem" }}>
         <Card.Img variant="top" src={image_url} />
         <Card.Body>
@@ -33,7 +33,7 @@ const Movie = props => {
           </Button>
         </Card.Body>
       </Card>
-    </div>
+    </ul>
   );
 };
 

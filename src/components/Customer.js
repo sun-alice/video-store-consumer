@@ -1,6 +1,8 @@
 import React from "react";
 import "./Customer.css";
 import PropTypes from "prop-types";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
 const Customer = props => {
   const {
@@ -18,25 +20,25 @@ const Customer = props => {
   } = props;
 
   return (
-    <div>
-      <section>
-        <h3> {name} </h3>
-        <p>
-          id: {id}
-          registered_at: {registered_at}
-          account_credit: {account_credit}
-          movies_checked_out_count: {movies_checked_out_count}
-          <button
-            className="btn btn-primary"
+    <ul>
+      <Card style={{ width: "18rem" }}>
+        <Card.Body>
+          <Card.Title>{name}</Card.Title>
+          <Card.Text>Phone: {phone}</Card.Text>
+          <Card.Text>Account Credit: ${account_credit}</Card.Text>
+          <Card.Text>Checked Out Movies: {movies_checked_out_count}</Card.Text>
+          <Button
+            variant="primary"
+            type="button"
             onClick={() => {
               selectCustomerCallback(id);
             }}
           >
-            Select
-          </button>
-        </p>
-      </section>
-    </div>
+            Select this Customer
+          </Button>
+        </Card.Body>
+      </Card>
+    </ul>
   );
 };
 
