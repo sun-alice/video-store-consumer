@@ -286,6 +286,16 @@ class App extends Component {
                 </div>
               </div>
             )}
+
+            {this.state.showOverdue && this.state.overdue.length === 0 && (
+              <div>
+                <section className="no-overdue">
+                  <Jumbotron>
+                    <h1>There are no overdue movies.</h1>
+                  </Jumbotron>
+                </section>
+              </div>
+            )}
           </div>
         </body>
       </html>
