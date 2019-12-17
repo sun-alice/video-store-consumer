@@ -207,11 +207,11 @@ class App extends Component {
 
   addMovie = (newMovie) => {
     axios.post('http://localhost:3000/movies', newMovie)
-      .then((respose) => {
+      .then((response) => {
         const updatedData = this.state.movies;
         updatedData.push((response.data));
         this.setState({
-          movies: updatedDate,
+          movies: updatedData,
         });
       })
       .catch((error) => {

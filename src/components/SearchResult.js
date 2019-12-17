@@ -14,7 +14,7 @@ const SearchResult = props => {
 
   const onAddMovie = () => {
     props.addMovieCallback ({
-      title: titile,
+      title: title,
       overview: overview,
       release_date: release_date,
       image_url: image_url,
