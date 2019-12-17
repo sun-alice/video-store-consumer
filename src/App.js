@@ -15,14 +15,26 @@ class App extends Component {
       movies: [],
       customers: [],
       overdue: [],
+      searchResult: [],
       selectedMovie: "",
       selectedCustomer: "",
+      searchTerm: "",
       showMovies: false,
       showCustomers: false,
       showOverdue: false,
       homepage: true,
       error: ""
     };
+  }
+
+  onChange = (event) => {
+    const value = event.target.value;
+
+    const newState = {
+      searchTerm: value
+    }
+
+    this.setState(newState);
   }
 
   showHomepage = () => {
@@ -153,6 +165,11 @@ class App extends Component {
     console.log(this.state.selectedMovie);
   };
 
+  searchForMovies = (textInput) => {
+    console.log(textInput);
+  }
+  
+
   render() {
     const { selectedMovie } = this.state;
 
@@ -207,8 +224,12 @@ class App extends Component {
                   type="text"
                   placeholder="Search"
                   className="mr-sm-2"
+                  onChange={ this.onChange }
                 />
-                <Button variant="outline-info">Search</Button>
+                <Button 
+                  variant="outline-info"
+                  // onClick={() => {this.searchForMovies(ref)}}
+                >Search</Button>
               </Form>
             </Navbar>
           </>
