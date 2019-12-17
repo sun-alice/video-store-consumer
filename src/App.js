@@ -3,6 +3,7 @@ import "./App.css";
 import axios from "axios";
 import MovieCollection from "./components/MovieCollection";
 import CustomerCollection from "./components/CustomerCollection";
+import RentalCollection from "./components/RentalCollection";
 
 class App extends Component {
   constructor(props) {
@@ -11,24 +12,30 @@ class App extends Component {
     this.state = {
       movies: [],
       customers: [],
-      rentals: [],
+      overdue: [],
       selectedMovie: "",
       selectedCustomer: "",
       showMovies: false,
       showCustomers: false,
       searchBar: false,
+      showOverdue: false,
       error: ""
     };
   }
 
   showMovies = () => {
-    this.state.showMovies = !this.state.showMovies;
-    this.componentDidMount();
+    const newState = { showMovies: !this.state.showMovies };
+    this.setState(newState);
   };
 
   showCustomers = () => {
-    this.state.showCustomers = !this.state.showCustomers;
-    this.componentDidMount();
+    const newState = { showCustomers: !this.state.showCustomers };
+    this.setState(newState);
+  };
+
+  showOverdue = () => {
+    const newState = { showOverdue: !this.state.showOverdue };
+    this.setState(newState);
   };
 
   selectCustomer = customerId => {
@@ -42,9 +49,13 @@ class App extends Component {
   };
 
   addRental = (movie, customerId) => {
+    let tenDaysLater = new Date(
+      new Date().getTime() + 10 * 24 * 60 * 60 * 1000
+    );
+
     const queryParams = {
       customer_id: customerId,
-      due_date: "January 25, 2020"
+      due_date: tenDaysLater
     };
 
     axios
@@ -53,20 +64,14 @@ class App extends Component {
         queryParams
       )
       .then(response => {
-        const updatedData = this.state.rentals;
-        updatedData.push(response.data);
-        this.setState({
-          rentals: updatedData,
-          error: ""
-        });
+        console.log("successfully created rental!");
       })
       .catch(error => {
         this.setState({ error: error.message });
       });
 
-    this.state.selectedCustomer = "";
-    this.state.selectedMovie = "";
-    this.componentDidMount();
+    const newState = { selectedCustomer: "", selectedMovie: "" };
+    this.setState(newState);
   };
 
   componentDidMount() {
@@ -88,6 +93,19 @@ class App extends Component {
       .then(response => {
         this.setState({
           movies: response.data
+        });
+      })
+      .catch(error => {
+        this.setState({
+          error: "there was an error"
+        });
+      });
+
+    axios
+      .get("http://localhost:3000/rentals/overdue")
+      .then(response => {
+        this.setState({
+          overdue: response.data
         });
       })
       .catch(error => {
@@ -132,6 +150,15 @@ class App extends Component {
           All Customers
         </button>
 
+        <button
+          type="button"
+          onClick={() => {
+            this.showOverdue();
+          }}
+        >
+          Overdue Movies
+        </button>
+
         {this.state.selectedMovie !== "" && (
           <h3> Selected Movie: {selectedMovie.title} </h3>
         )}
@@ -172,11 +199,13 @@ class App extends Component {
           </div>
         )}
 
-        {/* Rentals */}
-        {/* <MovieCollection
-          movies={this.state.rentals}
-          selectMovieCallback={this.selectMovie}
-        /> */}
+        {this.state.showOverdue && (
+          <div>
+            <div>
+              <RentalCollection rentals={this.state.overdue} />
+            </div>
+          </div>
+        )}
       </div>
     );
   }
