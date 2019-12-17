@@ -1,11 +1,8 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
 import MovieCollection from "./components/MovieCollection";
 import CustomerCollection from "./components/CustomerCollection";
-import Movie from "./components/Movie";
-import Customer from "./components/Customer";
 
 class App extends Component {
   constructor(props) {
@@ -14,6 +11,7 @@ class App extends Component {
     this.state = {
       movies: [],
       customers: [],
+      rentals: [],
       selectedMovie: "",
       selectedCustomer: "",
       error: ""
@@ -28,7 +26,19 @@ class App extends Component {
     });
 
     this.setState({ selectedCustomer });
-    console.log(selectedCustomer);
+  };
+
+  addRental = (movie, customerId) => {
+    const { rentals, customers } = this.state;
+    rentals.push(movie);
+
+    const customerToIncrease = customers.find(
+      customer => customer.id === customerId
+    );
+    customerToIncrease.movies_checked_out_count++;
+
+    this.setState(rentals);
+    this.setState(customers);
   };
 
   componentDidMount() {
@@ -59,38 +69,57 @@ class App extends Component {
       });
   }
 
-  selectMovie = (movieId) => {
+  selectMovie = movieId => {
     const { movies } = this.state;
 
-    const selectedMovie = movies.find((movie) => {
+    const selectedMovie = movies.find(movie => {
       return movie.id === movieId;
     });
 
     this.setState({ selectedMovie });
-    console.log(this.state.selectedMovie)
-  }
+    console.log(this.state.selectedMovie);
+  };
 
   render() {
     const { selectedMovie } = this.state;
 
     return (
       <div className="App">
-        { this.state.selectedMovie !== "" && (
-          <h3> Selected Movie: { selectedMovie.title } </h3>
+        {this.state.selectedMovie !== "" && (
+          <h3> Selected Movie: {selectedMovie.title} </h3>
         )}
 
-        { this.state.selectedCustomer !== "" && (
+        {this.state.selectedCustomer !== "" && (
           <h3>Selected Customer: {this.state.selectedCustomer.name}</h3>
         )}
 
-        <MovieCollection 
-          movies={this.state.movies} 
+        {this.state.selectedCustomer !== "" && this.state.selectedMovie !== "" && (
+          <button
+            type="button"
+            onClick={() => {
+              this.addRental(
+                this.state.selectedMovie,
+                this.state.selectedCustomer.id
+              );
+            }}
+          >
+            Checkout Movie
+          </button>
+        )}
+        {/* All movies */}
+        <MovieCollection
+          movies={this.state.movies}
           selectMovieCallback={this.selectMovie}
         />
-        
+
         <CustomerCollection
           customers={this.state.customers}
           selectCustomerCallback={this.selectCustomer}
+        />
+        {/* Rentals */}
+        <MovieCollection
+          movies={this.state.rentals}
+          selectMovieCallback={this.selectMovie}
         />
       </div>
     );
