@@ -1,26 +1,38 @@
 import React from "react";
 import "./Movie.css";
-import PropTypes from "prop-types";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
 const Movie = props => {
-  const { id, title, overview, release_date, image_url, external_id, selectMovieCallback } = props; 
+  const {
+    id,
+    title,
+    overview,
+    release_date,
+    image_url,
+    external_id,
+    selectMovieCallback
+  } = props;
 
   return (
     <div>
-      <section>
-        <h3> {title} </h3>
-        <p> 
-          id: {id} 
-          overview: {overview}
-          release_date: {release_date}
-          external_id: {external_id}
-        </p>
-        <img src={image_url} alt="movie_image" />
-        <button
-          type='button'
-          onClick={() => { selectMovieCallback(id) } }
-        >Select</button>
-      </section>
+      <Card style={{ width: "18rem" }}>
+        <Card.Img variant="top" src={image_url} />
+        <Card.Body>
+          <Card.Title>{title}</Card.Title>
+          <Card.Text>{overview}</Card.Text>
+          <Card.Text>{release_date}</Card.Text>
+          <Button
+            variant="primary"
+            type="button"
+            onClick={() => {
+              selectMovieCallback(id);
+            }}
+          >
+            Select this Movie
+          </Button>
+        </Card.Body>
+      </Card>
     </div>
   );
 };

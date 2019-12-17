@@ -130,83 +130,97 @@ class App extends Component {
     const { selectedMovie } = this.state;
 
     return (
-      <div className="App">
-        {/* buttons */}
-        <button
-          type="button"
-          onClick={() => {
-            this.showMovies();
-          }}
-        >
-          All Movies
-        </button>
+      <html>
+        <head>
+          <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+          />
+        </head>
+        <body>
+          <div className="App">
+            <h1>Video Store</h1>
+            {/* buttons */}
+            <button
+              type="button"
+              onClick={() => {
+                this.showMovies();
+              }}
+            >
+              All Movies
+            </button>
 
-        <button
-          type="button"
-          onClick={() => {
-            this.showCustomers();
-          }}
-        >
-          All Customers
-        </button>
+            <button
+              type="button"
+              onClick={() => {
+                this.showCustomers();
+              }}
+            >
+              All Customers
+            </button>
 
-        <button
-          type="button"
-          onClick={() => {
-            this.showOverdue();
-          }}
-        >
-          Overdue Movies
-        </button>
+            <button
+              type="button"
+              onClick={() => {
+                this.showOverdue();
+              }}
+            >
+              Overdue Movies
+            </button>
 
-        {this.state.selectedMovie !== "" && (
-          <h3> Selected Movie: {selectedMovie.title} </h3>
-        )}
+            {this.state.selectedMovie !== "" && (
+              <h3> Selected Movie: {selectedMovie.title} </h3>
+            )}
 
-        {this.state.selectedCustomer !== "" && (
-          <h3>Selected Customer: {this.state.selectedCustomer.name}</h3>
-        )}
+            {this.state.selectedCustomer !== "" && (
+              <h3>Selected Customer: {this.state.selectedCustomer.name}</h3>
+            )}
 
-        {this.state.selectedCustomer !== "" && this.state.selectedMovie !== "" && (
-          <button
-            type="button"
-            onClick={() => {
-              this.addRental(
-                this.state.selectedMovie,
-                this.state.selectedCustomer.id
-              );
-            }}
-          >
-            Checkout Movie
-          </button>
-        )}
+            {this.state.selectedCustomer !== "" &&
+              this.state.selectedMovie !== "" && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    this.addRental(
+                      this.state.selectedMovie,
+                      this.state.selectedCustomer.id
+                    );
+                  }}
+                >
+                  Checkout Movie
+                </button>
+              )}
 
-        {this.state.showMovies && (
-          <div>
-            <MovieCollection
-              movies={this.state.movies}
-              selectMovieCallback={this.selectMovie}
-            />
+            {this.state.showMovies && (
+              <div>
+                <MovieCollection
+                  movies={this.state.movies}
+                  selectMovieCallback={this.selectMovie}
+                />
+              </div>
+            )}
+
+            {this.state.showCustomers && (
+              <div>
+                <CustomerCollection
+                  customers={this.state.customers}
+                  selectCustomerCallback={this.selectCustomer}
+                />
+              </div>
+            )}
+
+            {this.state.showOverdue && (
+              <div>
+                <div>
+                  <RentalCollection rentals={this.state.overdue} />
+                </div>
+              </div>
+            )}
           </div>
-        )}
-
-        {this.state.showCustomers && (
-          <div>
-            <CustomerCollection
-              customers={this.state.customers}
-              selectCustomerCallback={this.selectCustomer}
-            />
-          </div>
-        )}
-
-        {this.state.showOverdue && (
-          <div>
-            <div>
-              <RentalCollection rentals={this.state.overdue} />
-            </div>
-          </div>
-        )}
-      </div>
+        </body>
+      </html>
     );
   }
 }
