@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
 import axios from "axios";
+import { Route, Link, BrowserRouter as Router } from "react-router-dom";
+
 import MovieCollection from "./components/MovieCollection";
 import CustomerCollection from "./components/CustomerCollection";
 import RentalCollection from "./components/RentalCollection";
