@@ -8,8 +8,19 @@ const SearchResult = props => {
     title,
     overview,
     release_date,
-    image_url
+    image_url,
+    external_id
   } = props;
+
+  const onAddMovie = () => {
+    props.addMovieCallback ({
+      title: titile,
+      overview: overview,
+      release_date: release_date,
+      image_url: image_url,
+      external_id: external_id
+    });
+  }
 
   return (
     <ul>
@@ -19,15 +30,13 @@ const SearchResult = props => {
           <Card.Title>{title}</Card.Title>
           <Card.Text>{overview}</Card.Text>
           <Card.Text>{release_date}</Card.Text>
-          {/* <Button
+          <Button
             variant="primary"
             type="button"
-            onClick={() => {
-              selectMovieCallback(id);
-            }}
+            onClick={ onAddMovie }
           >
-            Select this Movie
-          </Button> */}
+            Add this Movie
+          </Button>
         </Card.Body>
       </Card>
     </ul>

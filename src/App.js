@@ -182,8 +182,7 @@ class App extends Component {
   };
 
   searchForMovies = movieTitle => {
-    axios
-      .get(`http://localhost:3000/movies/?query=${movieTitle}`)
+    axios.get(`http://localhost:3000/movies/?query=${movieTitle}`)
       .then(response => {
         this.setState({
           searchResults: response.data,
@@ -204,8 +203,21 @@ class App extends Component {
         console.log(error.message)
       });  
       console.log(this.state.searchResults)
- 
   };
+
+  addMovie = (newMovie) => {
+    axios.post('http://localhost:3000/movies', newMovie)
+      .then((respose) => {
+        const updatedData = this.state.movies;
+        updatedData.push((response.data));
+        this.setState({
+          movies: updatedDate,
+        });
+      })
+      .catch((error) => {
+        this.setState({ errors: error.message });
+      });
+  }
 
   render() {
     const { selectedMovie } = this.state;
@@ -333,7 +345,7 @@ class App extends Component {
               <div>
                 <SearchResults
                   result={this.state.searchResults}
-                  // selectMovieCallback={this.selectMovie}
+                  addMovieCallback={this.addMovie}
                 />
               </div>
             )}
