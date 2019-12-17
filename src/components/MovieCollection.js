@@ -14,7 +14,7 @@ const MovieCollection = props => {
     );
   });
 
-  return <div>{movieCollection}</div>;
+  return <div className="background">{movieCollection}</div>;
 };
 
 export default MovieCollection;
