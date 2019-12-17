@@ -14,9 +14,22 @@ class App extends Component {
       rentals: [],
       selectedMovie: "",
       selectedCustomer: "",
+      showMovies: false,
+      showCustomers: false,
+      searchBar: false,
       error: ""
     };
   }
+
+  showMovies = () => {
+    this.state.showMovies = !this.state.showMovies;
+    this.componentDidMount();
+  };
+
+  showCustomers = () => {
+    this.state.showCustomers = !this.state.showCustomers;
+    this.componentDidMount();
+  };
 
   selectCustomer = customerId => {
     const { customers } = this.state;
@@ -100,6 +113,25 @@ class App extends Component {
 
     return (
       <div className="App">
+        {/* buttons */}
+        <button
+          type="button"
+          onClick={() => {
+            this.showMovies();
+          }}
+        >
+          All Movies
+        </button>
+
+        <button
+          type="button"
+          onClick={() => {
+            this.showCustomers();
+          }}
+        >
+          All Customers
+        </button>
+
         {this.state.selectedMovie !== "" && (
           <h3> Selected Movie: {selectedMovie.title} </h3>
         )}
@@ -121,16 +153,25 @@ class App extends Component {
             Checkout Movie
           </button>
         )}
-        {/* All movies */}
-        <MovieCollection
-          movies={this.state.movies}
-          selectMovieCallback={this.selectMovie}
-        />
 
-        <CustomerCollection
-          customers={this.state.customers}
-          selectCustomerCallback={this.selectCustomer}
-        />
+        {this.state.showMovies && (
+          <div>
+            <MovieCollection
+              movies={this.state.movies}
+              selectMovieCallback={this.selectMovie}
+            />
+          </div>
+        )}
+
+        {this.state.showCustomers && (
+          <div>
+            <CustomerCollection
+              customers={this.state.customers}
+              selectCustomerCallback={this.selectCustomer}
+            />
+          </div>
+        )}
+
         {/* Rentals */}
         {/* <MovieCollection
           movies={this.state.rentals}
