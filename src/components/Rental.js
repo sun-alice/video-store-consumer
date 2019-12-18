@@ -1,6 +1,7 @@
 import React from "react";
 import "./Rental.css";
 import PropTypes from "prop-types";
+import Card from "react-bootstrap/Card";
 
 const Rental = props => {
   const {
@@ -13,18 +14,16 @@ const Rental = props => {
   } = props;
 
   return (
-    <div>
-      <section>
-        <h3> {title} </h3>
-        <p>
-          customer id: {customer_id}
-          name: {name}
-          postal_code: {postal_code}
-          checkout_date: {checkout_date}
-          due_date: {due_date}
-        </p>
-      </section>
-    </div>
+    <ul>
+      <Card style={{ width: "18rem" }}>
+        <Card.Body>
+          <Card.Title>{title}</Card.Title>
+          <Card.Text>Rented by: {name}</Card.Text>
+          <Card.Text>Checkout Date: {checkout_date}</Card.Text>
+          <Card.Text>Due Date: {due_date}</Card.Text>
+        </Card.Body>
+      </Card>
+    </ul>
   );
 };
 

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
 import axios from "axios";
-import { Route, Link, BrowserRouter as Router } from "react-router-dom";
+
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import MovieCollection from "./components/MovieCollection";
 import CustomerCollection from "./components/CustomerCollection";
@@ -30,66 +31,17 @@ class App extends Component {
       selectedMovie: "",
       selectedCustomer: "",
       searchTerm: "",
-      showMovies: false,
-      showCustomers: false,
-      showOverdue: false,
-      homepage: true,
-      showSearchResults: false,
       error: ""
     };
   }
 
-  onChange = (event) => {
+  onChange = event => {
     const value = event.target.value;
 
     const newState = {
       searchTerm: value
-    }
-
-    this.setState(newState);
-  }
-
-  showHomepage = () => {
-    const newState = {
-      showMovies: false,
-      showCustomers: false,
-      showOverdue: false,
-      homepage: true,
-      showSearchResults: false,
     };
-    this.setState(newState);
-  };
 
-  showMovies = () => {
-    const newState = {
-      showMovies: true,
-      showCustomers: false,
-      showOverdue: false,
-      homepage: false,
-      showSearchResults: false,
-    };
-    this.setState(newState);
-  };
-
-  showCustomers = () => {
-    const newState = {
-      showCustomers: true,
-      showMovies: false,
-      showOverdue: false,
-      homepage: false,
-      showSearchResults: false,
-    };
-    this.setState(newState);
-  };
-
-  showOverdue = () => {
-    const newState = {
-      showOverdue: true,
-      showMovies: false,
-      showCustomers: false,
-      homepage: false,
-      showSearchResults: false,
-    };
     this.setState(newState);
   };
 
@@ -186,74 +138,38 @@ class App extends Component {
       .get(`http://localhost:3000/movies/?query=${movieTitle}`)
       .then(response => {
         this.setState({
-          searchResults: response.data,
-          showOverdue: false,
-          showMovies: false,
-          showCustomers: false,
-          homepage: false,
-          showSearchResults: true
+          searchResults: response.data
         });
 
-       
-        console.log(response.data)
+        console.log(response.data);
       })
       .catch(error => {
         this.setState({
           error: error.message
         });
-        console.log(error.message)
-      });  
-      console.log(this.state.searchResults)
- 
+        console.log(error.message);
+      });
+    console.log(this.state.searchResults);
   };
 
   render() {
-    const { selectedMovie } = this.state;
-
     return (
-      <html>
-        <head>
-          <link
-            rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-            crossorigin="anonymous"
-          />
-        </head>
-        <body>
+      <div>
+        <Router>
           <>
             <Navbar bg="dark" variant="dark">
-              <Navbar.Brand
-                onClick={() => {
-                  this.showHomepage();
-                }}
-              >
-                VideoStore
+              <Navbar.Brand>
+                <Link to="/">VideoStore</Link>
               </Navbar.Brand>
               <Nav className="mr-auto">
-                <Nav.Link
-                  type="button"
-                  onClick={() => {
-                    this.showMovies();
-                  }}
-                >
-                  All Movies
+                <Nav.Link type="button">
+                  <Link to="/library">All Movies</Link>
                 </Nav.Link>
-                <Nav.Link
-                  type="button"
-                  onClick={() => {
-                    this.showCustomers();
-                  }}
-                >
-                  All Customers
+                <Nav.Link>
+                  <Link to="/customers">All Customers</Link>
                 </Nav.Link>
-                <Nav.Link
-                  type="button"
-                  onClick={() => {
-                    this.showOverdue();
-                  }}
-                >
-                  Overdue Movies
+                <Nav.Link>
+                  <Link to="/overdue">Overdue Movies</Link>
                 </Nav.Link>
               </Nav>
               <Form inline>
@@ -261,95 +177,104 @@ class App extends Component {
                   type="text"
                   placeholder="Search"
                   className="mr-sm-2"
-                  onChange={ this.onChange }
+                  onChange={this.onChange}
                 />
-                <Button 
+                <Button
                   variant="outline-info"
-                  onClick={() => {this.searchForMovies(this.state.searchTerm)}}
-                >Search</Button>
+                  onClick={() => {
+                    this.searchForMovies(this.state.searchTerm);
+                  }}
+                >
+                  <Link to="/search">Search</Link>
+                </Button>
               </Form>
             </Navbar>
           </>
 
-          <div className="App">
-            {this.state.homepage && (
-              <Jumbotron>
-                <h1>Video Store</h1>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
-                </p>
-              </Jumbotron>
-            )}
-            {this.state.selectedMovie !== "" && (
-              <Card body> Selected Movie: {selectedMovie.title} </Card>
-            )}
+          {this.state.selectedMovie !== "" && (
+            <Card body> Selected Movie: {this.state.selectedMovie.title} </Card>
+          )}
 
-            {this.state.selectedCustomer !== "" && (
-              <Card body>
-                Selected Customer: {this.state.selectedCustomer.name}
-              </Card>
+          {this.state.selectedCustomer !== "" && (
+            <Card body>
+              Selected Customer: {this.state.selectedCustomer.name}
+            </Card>
+          )}
+
+          {this.state.selectedCustomer !== "" &&
+            this.state.selectedMovie !== "" && (
+              <Button
+                onClick={() => {
+                  this.addRental(
+                    this.state.selectedMovie,
+                    this.state.selectedCustomer.id
+                  );
+                }}
+              >
+                Checkout Movie
+              </Button>
             )}
 
-            {this.state.selectedCustomer !== "" &&
-              this.state.selectedMovie !== "" && (
-                <Button
-                  onClick={() => {
-                    this.addRental(
-                      this.state.selectedMovie,
-                      this.state.selectedCustomer.id
-                    );
-                  }}
-                >
-                  Checkout Movie
-                </Button>
-              )}
-
-            {this.state.showMovies && (
-              <div>
+          <Switch>
+            <Route exact path="/">
+              <div className="contents">
+                <Jumbotron>
+                  <h1>Video Store</h1>
+                  <p>
+                    // Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    sed // do eiusmod tempor incididunt ut labore et dolore
+                    magna aliqua. // Ut enim ad minim veniam, quis nostrud
+                    exercitation ullamco // laboris nisi ut aliquip ex ea
+                    commodo consequat. Duis aute // irure dolor in reprehenderit
+                    in voluptate velit esse cillum // dolore eu fugiat nulla
+                    pariatur. Excepteur sint occaecat // cupidatat non proident,
+                    sunt in culpa qui officia deserunt mollit anim id est
+                    laborum.
+                  </p>
+                </Jumbotron>
+              </div>
+            </Route>
+            <Route path="/library">
+              <div className="contents">
                 <MovieCollection
                   movies={this.state.movies}
                   selectMovieCallback={this.selectMovie}
                 />
               </div>
-            )}
-
-            {this.state.showCustomers && (
-              <div>
+            </Route>
+            <Route path="/customers">
+              <div className="contents">
                 <CustomerCollection
                   customers={this.state.customers}
                   selectCustomerCallback={this.selectCustomer}
                 />
               </div>
-            )}
-
-            {this.state.showSearchResults && (
-              <div>
-                <SearchResults
-                  result={this.state.searchResults}
-                  // selectMovieCallback={this.selectMovie}
-                />
-              </div>
-            )}
-
-            {this.state.showOverdue && this.state.overdue.length === 0 && (
-              <div>
+            </Route>
+            <Route path="/overdue">
+              <div className="contents">
                 <section className="no-overdue">
-                  <Jumbotron>
-                    <h1>There are no overdue movies.</h1>
-                  </Jumbotron>
+                  {this.state.overdue.length === 0 && (
+                    <Jumbotron>
+                      <h1>There are no overdue movies.</h1>
+                    </Jumbotron>
+                  )}
                 </section>
+
+                {this.state.overdue.length !== 0 && (
+                  <div>
+                    <RentalCollection rentals={this.state.overdue} />
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        </body>
-      </html>
+            </Route>
+            <Route path="/search">
+              <div className="contents">
+                <SearchResults result={this.state.searchResults} />
+              </div>
+            </Route>
+          </Switch>
+        </Router>
+      </div>
     );
   }
 }
