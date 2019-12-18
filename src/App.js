@@ -220,14 +220,20 @@ class App extends Component {
           </div>
 
           {this.state.selectedMovie !== "" && (
-            <Card bg="dark" text="white" body>
-              Selected Movie: {this.state.selectedMovie.title}
+            <Card border="light" bg="dark" text="white" body>
+              <div>
+                <strong>Selected Movie: </strong>
+                {this.state.selectedMovie.title}
+              </div>
             </Card>
           )}
 
           {this.state.selectedCustomer !== "" && (
-            <Card bg="dark" text="white" body>
-              Selected Customer: {this.state.selectedCustomer.name}
+            <Card border="light" bg="dark" text="white" body>
+              <div>
+                <strong>Selected Customer: </strong>
+                {this.state.selectedCustomer.name}
+              </div>
             </Card>
           )}
 

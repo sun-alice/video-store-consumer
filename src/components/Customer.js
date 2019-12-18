@@ -22,7 +22,7 @@ const Customer = props => {
       <td>{city}</td>
       <td>{state}</td>
       <td>{phone}</td>
-      <td>{account_credit}</td>
+      <td>${account_credit}</td>
       <td>{movies_checked_out_count}</td>
       <td>
         <Button
