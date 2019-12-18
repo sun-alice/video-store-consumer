@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { render } from "react-dom";
 import "./App.css";
 import axios from "axios";
 
@@ -8,6 +9,7 @@ import MovieCollection from "./components/MovieCollection";
 import CustomerCollection from "./components/CustomerCollection";
 import RentalCollection from "./components/RentalCollection";
 import SearchResults from "./components/SearchResults";
+import FlashMessage from "react-flash-message";
 
 import {
   Navbar,
@@ -31,7 +33,8 @@ class App extends Component {
       selectedMovie: "",
       selectedCustomer: "",
       searchTerm: "",
-      error: ""
+      error: "",
+      success: ""
     };
   }
 
@@ -71,7 +74,7 @@ class App extends Component {
         queryParams
       )
       .then(response => {
-        console.log("successfully created rental!");
+        this.setState({ success: "Rental successfully added!" });
         this.componentDidMount();
       })
       .catch(error => {
@@ -92,7 +95,7 @@ class App extends Component {
       })
       .catch(error => {
         this.setState({
-          error: "there was an error"
+          error: "There was an error in retrieving the data."
         });
       });
 
@@ -105,7 +108,7 @@ class App extends Component {
       })
       .catch(error => {
         this.setState({
-          error: "there was an error"
+          error: "There was an error in retrieving the data."
         });
       });
 
@@ -118,7 +121,7 @@ class App extends Component {
       })
       .catch(error => {
         this.setState({
-          error: "there was an error"
+          error: "There was an error in retrieving the data."
         });
       });
   }
@@ -131,7 +134,6 @@ class App extends Component {
     });
 
     this.setState({ selectedMovie });
-    console.log(this.state.selectedMovie);
   };
 
   searchForMovies = movieTitle => {
@@ -147,7 +149,6 @@ class App extends Component {
         this.setState({
           error: error.message
         });
-        console.log(error.message);
       });
   };
 
@@ -158,13 +159,15 @@ class App extends Component {
         const updatedData = this.state.movies;
         updatedData.push(response.data);
         this.setState({
-          movies: updatedData
+          movies: updatedData,
+          success: "Movie was successfully added to the library!"
         });
         this.componentDidMount();
       })
       .catch(error => {
-        this.setState({ errors: error.message });
+        this.setState({ error: error.message });
       });
+    console.log(this.state.error);
   };
 
   render() {
@@ -205,6 +208,17 @@ class App extends Component {
               </Form>
             </Navbar>
           </>
+
+          <div className="error">
+            <FlashMessage duration={8000}>
+              <strong>{this.state.error}</strong>
+            </FlashMessage>
+          </div>
+          <div className="success">
+            <FlashMessage duration={8000}>
+              <strong>{this.state.success}</strong>
+            </FlashMessage>
+          </div>
 
           {this.state.selectedMovie !== "" && (
             <Card body> Selected Movie: {this.state.selectedMovie.title} </Card>
