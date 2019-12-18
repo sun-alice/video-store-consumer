@@ -4,14 +4,7 @@ import PropTypes from "prop-types";
 import Card from "react-bootstrap/Card";
 
 const Rental = props => {
-  const {
-    title,
-    customer_id,
-    name,
-    postal_code,
-    checkout_date,
-    due_date
-  } = props;
+  const { title, name, checkout_date, due_date } = props;
 
   return (
     <ul>

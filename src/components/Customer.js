@@ -1,19 +1,14 @@
 import React from "react";
 import "./Customer.css";
 import PropTypes from "prop-types";
-import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import Accordion from "react-bootstrap/Accordion";
 
 const Customer = props => {
   const {
     id,
     name,
-    registered_at,
-    address,
     city,
     state,
-    postal_code,
     phone,
     account_credit,
     movies_checked_out_count,

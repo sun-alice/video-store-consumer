@@ -11,7 +11,6 @@ const Movie = props => {
     overview,
     release_date,
     image_url,
-    external_id,
     selectMovieCallback
   } = props;
 
@@ -42,7 +41,7 @@ const Movie = props => {
           <Accordion.Collapse eventKey="1">
             <Card.Body>
               <Card.Text>{overview}</Card.Text>
-              <Card.Text>{release_date}</Card.Text>
+              <Card.Text>Release Date: {release_date}</Card.Text>
             </Card.Body>
           </Accordion.Collapse>
         </Card>
