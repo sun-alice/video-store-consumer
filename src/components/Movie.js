@@ -2,6 +2,7 @@ import React from "react";
 import "./Movie.css";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Accordion from "react-bootstrap/Accordion";
 
 const Movie = props => {
   const {
@@ -16,23 +17,36 @@ const Movie = props => {
 
   return (
     <ul>
-      <Card style={{ width: "18rem" }}>
-        <Card.Img variant="top" src={image_url} />
-        <Card.Body>
-          <Card.Title>{title}</Card.Title>
-          <Card.Text>{overview}</Card.Text>
-          <Card.Text>{release_date}</Card.Text>
-          <Button
-            variant="primary"
-            type="button"
-            onClick={() => {
-              selectMovieCallback(id);
-            }}
-          >
-            Select this Movie
-          </Button>
-        </Card.Body>
-      </Card>
+      <Accordion>
+        <Card style={{ width: "20rem" }}>
+          <Card.Header>
+            <Card.Img variant="top" src={image_url} />
+            <Card.Title className="movie-title">{title}</Card.Title>
+            <Button
+              variant="primary"
+              type="button"
+              onClick={() => {
+                selectMovieCallback(id);
+              }}
+            >
+              Select this Movie
+            </Button>
+          </Card.Header>
+        </Card>
+        <Card style={{ width: "20rem" }}>
+          <Card.Header>
+            <Accordion.Toggle as={Button} variant="link" eventKey="1">
+              See More
+            </Accordion.Toggle>
+          </Card.Header>
+          <Accordion.Collapse eventKey="1">
+            <Card.Body>
+              <Card.Text>{overview}</Card.Text>
+              <Card.Text>{release_date}</Card.Text>
+            </Card.Body>
+          </Accordion.Collapse>
+        </Card>
+      </Accordion>
     </ul>
   );
 };
