@@ -72,6 +72,7 @@ class App extends Component {
       )
       .then(response => {
         console.log("successfully created rental!");
+        this.componentDidMount();
       })
       .catch(error => {
         this.setState({ error: error.message });
@@ -140,8 +141,7 @@ class App extends Component {
         this.setState({
           searchResults: response.data
         });
-
-        console.log(response.data);
+        this.componentDidMount();
       })
       .catch(error => {
         this.setState({
@@ -149,7 +149,6 @@ class App extends Component {
         });
         console.log(error.message);
       });
-    console.log(this.state.searchResults);
   };
 
   addMovie = newMovie => {
@@ -161,6 +160,7 @@ class App extends Component {
         this.setState({
           movies: updatedData
         });
+        this.componentDidMount();
       })
       .catch(error => {
         this.setState({ errors: error.message });
@@ -283,8 +283,8 @@ class App extends Component {
             </Route>
             <Route path="/search">
               <div className="contents">
-                <SearchResults 
-                  result={this.state.searchResults} 
+                <SearchResults
+                  result={this.state.searchResults}
                   addMovieCallback={this.addMovie}
                 />
               </div>
