@@ -283,7 +283,10 @@ class App extends Component {
             </Route>
             <Route path="/search">
               <div className="contents">
-                <SearchResults result={this.state.searchResults} />
+                <SearchResults 
+                  result={this.state.searchResults} 
+                  addMovieCallback={this.addMovie}
+                />
               </div>
             </Route>
           </Switch>
