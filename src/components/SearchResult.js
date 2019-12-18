@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Accordion from "react-bootstrap/Accordion";
-import PropTypes from "prop-types";
 
 const SearchResult = props => {
   const { title, overview, release_date, image_url, external_id } = props;
@@ -50,20 +49,11 @@ const SearchResult = props => {
 };
 
 SearchResult.propTypes = {
-<<<<<<< HEAD
   title: PropTypes.string,
   overview: PropTypes.string,
   release_date: PropTypes.string,
   image_url: PropTypes.string,
   external_id: PropTypes.number
 };
-=======
-  title: PropTypes.string.isRequired,
-  overview: PropTypes.string.isRequired,
-  release_date: PropTypes.number.isRequired,
-  image_url: PropTypes.string.isRequired,
-  external_id: PropTypes.number,
-}
->>>>>>> 61bd6edaeff496062ba84bd5b20b99e0d6aef6c2
 
 export default SearchResult;
