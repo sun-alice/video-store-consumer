@@ -17,4 +17,9 @@ const SearchResults = props => {
   return searchResults;
 };
 
+SearchResults.propTypes = {
+  result: PropTypes.array,
+  addMovieCallback: PropTypes.func.isRequired
+};
+
 export default SearchResults;

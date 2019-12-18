@@ -17,4 +17,9 @@ const MovieCollection = props => {
   return <div className="background">{movieCollection}</div>;
 };
 
+MovieCollection.propTypes = {
+  movies: PropTypes.array,
+  selectMovieCallback: PropTypes.func.isRequired
+};
+
 export default MovieCollection;

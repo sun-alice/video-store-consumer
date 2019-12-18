@@ -3,6 +3,7 @@ import "./Movie.css";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Accordion from "react-bootstrap/Accordion";
+import PropTypes from "prop-types";
 
 const Movie = props => {
   const {
@@ -48,6 +49,15 @@ const Movie = props => {
       </Accordion>
     </ul>
   );
+};
+
+Movie.propTypes = {
+  id: PropTypes.number,
+  title: PropTypes.string,
+  overview: PropTypes.string,
+  release_date: PropTypes.string,
+  image_url: PropTypes.string,
+  selectMovieCallback: PropTypes.func.isRequired
 };
 
 export default Movie;
