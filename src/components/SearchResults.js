@@ -17,9 +17,18 @@ const SearchResults = props => {
   return searchResults;
 };
 
+<<<<<<< HEAD
 SearchResults.propTypes = {
   result: PropTypes.array,
   addMovieCallback: PropTypes.func.isRequired
 };
 
 export default SearchResults;
+=======
+SearchResults.propType = {
+  result: PropTypes.arrary,
+  addMovieCallback: PropTypes.func.isRequired
+}
+
+export default SearchResults;
+>>>>>>> 61bd6edaeff496062ba84bd5b20b99e0d6aef6c2

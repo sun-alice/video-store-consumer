@@ -35,4 +35,9 @@ const CustomerCollection = props => {
   );
 };
 
+CustomerCollection.propTypes = {
+  customers: PropTypes.array,
+  selectCustomerCallback: PropTypes.func.isRequired
+}
+
 export default CustomerCollection;

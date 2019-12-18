@@ -39,4 +39,14 @@ const Customer = props => {
   );
 };
 
+Customer.propTypes = {
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  city: PropTypes.string,
+  state: PropTypes.string,
+  phone: PropTypes.string,
+  account_credit: PropTypes.number,
+  movies_checked_out_count: PropTypes.number.isRequired,
+}
+
 export default Customer;
