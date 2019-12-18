@@ -47,3 +47,14 @@ body, .background{
   margin-top: 3rem;
   text-align: center;
 }
+
+.navbar a{
+  color: rgb(133, 233, 223)
+}
+.navbar a:hover {
+  color: rgb(98, 169, 162)
+}
+
+.navbar a:link{
+  text-decoration: none;
+}
