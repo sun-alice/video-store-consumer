@@ -38,6 +38,7 @@ class App extends Component {
   }
 
   onChange = event => {
+    event.preventDefault();
     const value = event.target.value;
 
     const newState = {
