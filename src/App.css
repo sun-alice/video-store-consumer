@@ -42,3 +42,8 @@ body, .background{
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.contents{
+  margin-top: 3rem;
+  text-align: center;
+}
