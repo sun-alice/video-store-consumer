@@ -17,7 +17,7 @@ const CustomerCollection = props => {
 
   return (
     <div className="background">
-      <Table striped bordered hover variant="light">
+      <Table striped bordered hover variant="dark">
         <thead>
           <tr>
             <th>ID</th>

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
 import "./App.css";
 import axios from "axios";
 
@@ -210,7 +209,7 @@ class App extends Component {
           </>
 
           <div className="error">
-            <FlashMessage duration={8000}>
+            <FlashMessage duration={8000} message={this.state.error}>
               <strong>{this.state.error}</strong>
             </FlashMessage>
           </div>
@@ -221,11 +220,13 @@ class App extends Component {
           </div>
 
           {this.state.selectedMovie !== "" && (
-            <Card body> Selected Movie: {this.state.selectedMovie.title} </Card>
+            <Card bg="dark" text="white" body>
+              Selected Movie: {this.state.selectedMovie.title}
+            </Card>
           )}
 
           {this.state.selectedCustomer !== "" && (
-            <Card body>
+            <Card bg="dark" text="white" body>
               Selected Customer: {this.state.selectedCustomer.name}
             </Card>
           )}
@@ -247,7 +248,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/">
               <div className="contents">
-                <Jumbotron>
+                <Jumbotron fluid>
                   <h1>Video Store</h1>
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed

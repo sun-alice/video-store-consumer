@@ -8,7 +8,7 @@ const Rental = props => {
 
   return (
     <ul>
-      <Card style={{ width: "18rem" }}>
+      <Card bg="dark" text="white" style={{ width: "18rem" }}>
         <Card.Body>
           <Card.Title>{title}</Card.Title>
           <Card.Text>Rented by: {name}</Card.Text>

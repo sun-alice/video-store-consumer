@@ -20,7 +20,7 @@ const SearchResult = props => {
   return (
     <ul>
       <Accordion>
-        <Card style={{ width: "20rem" }}>
+        <Card bg="dark" text="white" style={{ width: "20rem" }}>
           <Card.Header>
             <Card.Img variant="top" src={image_url} />
             <Card.Title className="movie-title">{title}</Card.Title>
@@ -29,7 +29,7 @@ const SearchResult = props => {
             </Button>
           </Card.Header>
         </Card>
-        <Card style={{ width: "20rem" }}>
+        <Card bg="dark" text="white" style={{ width: "20rem" }}>
           <Card.Header>
             <Accordion.Toggle as={Button} variant="link" eventKey="1">
               See More
