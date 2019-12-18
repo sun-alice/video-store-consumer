@@ -152,6 +152,21 @@ class App extends Component {
     console.log(this.state.searchResults);
   };
 
+  addMovie = newMovie => {
+    axios
+      .post("http://localhost:3000/movies", newMovie)
+      .then(response => {
+        const updatedData = this.state.movies;
+        updatedData.push(response.data);
+        this.setState({
+          movies: updatedData
+        });
+      })
+      .catch(error => {
+        this.setState({ errors: error.message });
+      });
+  };
+
   render() {
     return (
       <div>

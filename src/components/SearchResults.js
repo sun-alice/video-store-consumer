@@ -9,7 +9,7 @@ const SearchResults = props => {
       <SearchResult
         key={i}
         {...movie}
-        selectMovieCallback={props.selectMovieCallback}
+        addMovieCallback={props.addMovieCallback}
       />
     );
   });
