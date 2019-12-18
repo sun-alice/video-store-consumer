@@ -1,5 +1,6 @@
 import React from "react";
 import "./SearchResult.css";
+import PropTypes from "prop-types";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Accordion from "react-bootstrap/Accordion";
@@ -46,5 +47,13 @@ const SearchResult = props => {
     </ul>
   );
 };
+
+SearchResult.propTypes = {
+  title: PropTypes.string.isRequired,
+  overview: PropTypes.string.isRequired,
+  release_date: PropTypes.number.isRequired,
+  image_url: PropTypes.string.isRequired,
+  external_id: PropTypes.number,
+}
 
 export default SearchResult;
