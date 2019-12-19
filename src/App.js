@@ -241,6 +241,7 @@ class App extends Component {
           {this.state.selectedCustomer !== "" &&
             this.state.selectedMovie !== "" && (
               <Button
+                className="checkout-button"
                 onClick={() => {
                   this.addRental(
                     this.state.selectedMovie,

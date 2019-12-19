@@ -82,3 +82,8 @@ body, .background{
 *{
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
+
+.checkout-button{
+margin-top: 2rem;
+margin-left: 2rem;
+}
