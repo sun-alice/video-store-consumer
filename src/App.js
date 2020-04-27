@@ -70,7 +70,7 @@ class App extends Component {
 
     axios
       .post(
-        "http://localhost:3000/rentals/" + `${movie.title}` + "/check-out",
+        "https://afternoon-citadel-58941.herokuapp.com/rentals/" + `${movie.title}` + "/check-out",
         queryParams
       )
       .then(response => {
@@ -87,7 +87,7 @@ class App extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:3000/customers")
+      .get("https://afternoon-citadel-58941.herokuapp.com/customers")
       .then(response => {
         this.setState({
           customers: response.data
@@ -100,7 +100,7 @@ class App extends Component {
       });
 
     axios
-      .get("http://localhost:3000/movies")
+      .get("https://afternoon-citadel-58941.herokuapp.com/movies")
       .then(response => {
         this.setState({
           movies: response.data
@@ -113,7 +113,7 @@ class App extends Component {
       });
 
     axios
-      .get("http://localhost:3000/rentals/overdue")
+      .get("https://afternoon-citadel-58941.herokuapp.com/rentals/overdue")
       .then(response => {
         this.setState({
           overdue: response.data
@@ -138,7 +138,7 @@ class App extends Component {
 
   searchForMovies = movieTitle => {
     axios
-      .get(`http://localhost:3000/movies/?query=${movieTitle}`)
+      .get(`https://afternoon-citadel-58941.herokuapp.com/movies/?query=${movieTitle}`)
       .then(response => {
         this.setState({
           searchResults: response.data
@@ -154,7 +154,7 @@ class App extends Component {
 
   addMovie = newMovie => {
     axios
-      .post("http://localhost:3000/movies", newMovie)
+      .post("https://afternoon-citadel-58941.herokuapp.com/movies", newMovie)
       .then(response => {
         const updatedData = this.state.movies;
         updatedData.push(response.data);
